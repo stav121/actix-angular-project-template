@@ -1,0 +1,189 @@
+{
+  "db": "PostgreSQL",
+  "3da743db6d7897ca66d3ec0737c2b5f5b319b0b3a1874d5253bf695f30b59978": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Int8"
+        },
+        {
+          "name": "username",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "password",
+          "ordinal": 3,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "role",
+          "ordinal": 4,
+          "type_info": "Varchar"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n            SELECT u.user_id,\n                   u.username,\n                   u.email,\n                   u.password,\n                   u.role\n            FROM app_user u\n            WHERE u.username ILIKE $1\n               OR u.email ILIKE $1\n            "
+  },
+  "598934f7d1d73c7310b5b5d1b23ca8ed4ef26646ee241889475b49cc84b1bd88": {
+    "describe": {
+      "columns": [
+        {
+          "name": "exists",
+          "ordinal": 0,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        null
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n     SELECT EXISTS(\n        SELECT 1\n        FROM app_user u\n        WHERE LOWER(u.username) = LOWER($1)\n     )\n     "
+  },
+  "661e97bbb8fc43ec59751fd43362fb0e7b96fb30050ff4becc53c56180db075e": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Int8"
+        ]
+      }
+    },
+    "query": "\n            UPDATE app_user u\n            SET last_login = NOW()\n            WHERE u.user_id = $1\n            "
+  },
+  "dceea785d1e9dcdabb8c29b558047ad4df7ec6ccacf24bbc00ad347d64867311": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Int8"
+        },
+        {
+          "name": "username",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "role",
+          "ordinal": 3,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "created_at",
+          "ordinal": 4,
+          "type_info": "Timestamptz"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int8"
+        ]
+      }
+    },
+    "query": "\n            SELECT u.user_id,\n                   u.username,\n                   u.email,\n                   u.role,\n                   u.created_at\n            FROM app_user u\n            WHERE u.user_id = $1\n            "
+  },
+  "e74ea3cd7de047b7c056b4ec5fbca2bab1e567c531ce9914f5c0d02b065a7cbd": {
+    "describe": {
+      "columns": [
+        {
+          "name": "exists",
+          "ordinal": 0,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        null
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n        SELECT EXISTS(\n            SELECT 1\n            FROM app_user u\n            WHERE LOWER(u.email) = LOWER($1)\n        )\n        "
+  },
+  "f24541a267538df2b40b8351e403410ddc02edd0903f185547ba4194edd9218b": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Int8"
+        },
+        {
+          "name": "username",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "role",
+          "ordinal": 3,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "created_at",
+          "ordinal": 4,
+          "type_info": "Timestamptz"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Varchar",
+          "Varchar"
+        ]
+      }
+    },
+    "query": "\n            INSERT INTO app_user (username, email, password)\n            VALUES ($1, $2, $3)\n            RETURNING user_id, username, email, role, created_at\n            "
+  }
+}

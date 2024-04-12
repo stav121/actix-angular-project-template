@@ -1,0 +1,43 @@
+<header>
+  <div style="width: 100%" *ngIf="isLoggedIn">
+    <p-toolbar>
+      <div class="p-toolbar-group-start">
+        <p-avatar icon="pi pi-home"
+                  styleClass="mr2"
+                  size="normal"
+                  shape="square"/>
+      </div>
+      <div class="p-toolbar-group-center">
+        <div *ngIf="this.isAlive">
+          <button [@heartBeat]="this.animateHeartbeat"
+                  pTooltip="Server is OK"
+                  pButton
+                  pRipple
+                  icon="pi pi-heart"
+                  class="p-button-rounded p-button-success"></button>
+        </div>
+        <div *ngIf="!this.isAlive">
+          <button [@heartBeat]="this.animateHeartbeat"
+                  pTooltip="Server is OK"
+                  pButton
+                  pRipple
+                  icon="pi pi-heart"
+                  class="p-button-rounded p-button-danger"></button>
+        </div>
+      </div>
+      <div class="p-toolbar-group-end">
+        <!-- Avatar with menu -->
+        <p-avatar icon="pi pi-user"
+                  styleClass="mr2"
+                  size="normal"
+                  shape="circle"
+                  (click)="avatarMenu.toggle($event)"
+        />
+        <p-tieredMenu #avatarMenu
+                      [popup]="true"
+                      [model]="menuItems">
+        </p-tieredMenu>
+      </div>
+    </p-toolbar>
+  </div>
+</header>

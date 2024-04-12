@@ -1,0 +1,127 @@
+<div class="flex align-items-end justify-content-between">
+  <div class="flex pl-5">
+    <app-theme-picker></app-theme-picker>
+  </div>
+
+  <div class="flex pr-5">
+    <app-language-picker></app-language-picker>
+  </div>
+</div>
+
+<div class="flex align-items-center justify-content-center">
+  <div class="flex flex-column flex-wrap">
+    <form
+      *ngIf="!isSuccessful"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      novalidate
+    >
+      <!-- Username -->
+      <div class="flex align-content-center justify-content-center pt-5 flex-column">
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-user"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            placeholder="fancyUser1"
+            type="text"
+            pTooltip="{{'register.username-tooltip' | translate}}"
+            tooltipPosition="top"
+            formControlName="username"
+            required
+            name="username"
+            [ngClass]="{'ng-invalid ng-dirty': form.get('username')?.invalid}"
+          />
+          <p-inputGroupAddon *ngIf="form.get('username')?.invalid">
+            <i class="pi pi-exclamation-circle"
+               pTooltip="{{'register.username-required' | translate}}"
+               tooltipPosition="top"
+               style="color: orange">
+            </i>
+          </p-inputGroupAddon>
+        </p-inputGroup>
+      </div>
+      <!-- Email -->
+
+      <!-- Email -->
+      <div class="flex align-content-center justify-content-center pt-3 flex-column">
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-envelope"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            placeholder="example@mail.com"
+            type="text"
+            pTooltip="{{'register.email-tooltip' | translate}}"
+            tooltipPosition="top"
+            required
+            name="email"
+            formControlName="email"
+            email
+            [ngClass]="{'ng-invalid ng-dirty': form.get('email')?.invalid}"
+          />
+          <p-inputGroupAddon *ngIf="errorCode==='REG001'">
+            <i class="pi pi-exclamation-triangle p-error"
+               pTooltip="email required"
+               tooltipPosition="top"
+            ></i>
+          </p-inputGroupAddon>
+          <p-inputGroupAddon *ngIf="form.get('email')?.invalid">
+            <i class="pi pi-exclamation-circle"
+               pTooltip="{{ 'register.email-required' | translate}}"
+               tooltipPosition="top"
+               style="color: orange"
+            >
+            </i>
+          </p-inputGroupAddon>
+        </p-inputGroup>
+      </div>
+
+      <!-- Password -->
+      <div class="flex align-content-center justify-content-center pt-3 flex-column">
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-key"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            placeholder="*****"
+            type="password"
+            name="password"
+            tooltipPosition="top"
+            minlength="6"
+            pTooltip="{{'register.password-tooltip' | translate}}"
+            formControlName="password"
+            required
+          />
+          <p-inputGroupAddon *ngIf="form.get('password')?.invalid">
+            <i class="pi pi-exclamation-circle"
+               pTooltip="{{'register.password-required' | translate}}"
+               tooltipPosition="top"
+               style="color: orange"
+            >
+            </i>
+          </p-inputGroupAddon>
+        </p-inputGroup>
+      </div>
+
+      <!-- Submit button -->
+      <div class="flex align-content-center justify-content-center pt-3">
+        <button pButton
+                pRipple
+                icon="pi pi-angle-right"
+                label="{{'register.signup-btn' | translate}}"
+                class="p-button-secondary"
+                style="width: 120px"
+                iconPos="right"></button>
+      </div>
+    </form>
+
+    <div *ngIf="isSuccessful" class="p-text-secondary flex justify-content-center align-content-center pt-5">
+      {{ 'register.signup-success' | translate }} <a routerLink="/login"
+                                                     routerLinkActive>{{ 'register.signup-success-login' | translate }}</a>
+    </div>
+  </div>
+</div>

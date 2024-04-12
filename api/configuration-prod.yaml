@@ -1,0 +1,25 @@
+# Application settings
+application:
+  host: "0.0.0.0"
+  port: 8000
+  # FIXME: Replace with the actual domain
+  cors_location: "*"
+  api_prefix: "/api"
+
+# JWT settings
+jwt:
+  # FIXME: Replace this line for production security
+  secret: "my_ultra_secure_secret"
+  expires_in: "15m"
+  max_age: 15
+  # FIXME: Replace with the actual domain
+  cookie_domain: "localhost"
+  cookie_name: "auth-token"
+
+# Database settings
+database:
+  host: "db"
+  port: 5432
+  username: "user"
+  password: "password"
+  database_name: "db"

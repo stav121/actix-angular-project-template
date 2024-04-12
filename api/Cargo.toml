@@ -1,0 +1,33 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2021"
+authors = ["Stavros Grigoriou <unix121@protonmail.com>"]
+description = "Template project that uses Actix Web and Angular"
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+path = "src/main.rs"
+name = "api"
+
+[dependencies]
+actix-web = "4.3.0"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+actix-cors = "0.7.0"
+serde = { version = "1.0.152", features = ["derive"] }
+config = "0.14.0"
+uuid = { version = "1.2.2", features = ["serde", "v4"] }
+serde_json = "1.0.115"
+tracing = { version = "0.1.40", features = ["log"] }
+tracing-subscriber = { version = "0.3.18", features = ["registry", "env-filter"] }
+tracing-bunyan-formatter = "0.3"
+tracing-log = "0.2.0"
+secrecy = { version = "0.8.0", features = ["serde"] }
+tracing-actix-web = "0.7.9"
+argon2 = "0.5.3"
+chrono = { version = "0.4.23", features = ["serde"] }
+jsonwebtoken = "9.2.0"
+rand_core = { version = "0.6.4", features = ["std"] }
+sqlx = { version = "0.6.2", features = ["runtime-async-std-native-tls", "postgres", "chrono", "uuid", "time", "bigdecimal", "offline", "migrate"] }

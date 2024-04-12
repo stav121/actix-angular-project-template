@@ -1,0 +1,13 @@
+<p-toast></p-toast>
+
+<!-- Show router outlet directly -->
+<div class="flex flex-column" *ngIf="isLive">
+  <app-menubar *ngIf="isLoggedIn"></app-menubar>
+  <div class="flex flex-column">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<div class="flex flex-column" *ngIf="!isLive">
+  <strong>The server is not running!</strong>
+</div>
