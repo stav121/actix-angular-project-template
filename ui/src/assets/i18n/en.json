@@ -1,0 +1,27 @@
+{
+  "login": {
+    "identifier-required": "Email or username is required",
+    "password-required": "Password is required",
+    "login-btn": "Login",
+    "n-member": "Not a member?",
+    "r-here": "Register here!"
+  },
+  "register": {
+    "username-tooltip": "Please enter your username",
+    "email-tooltip": "Please enter your email",
+    "password-tooltip": "Please enter your password",
+    "username-required": "A valid username is required",
+    "email-required": "A valid email is required",
+    "password-required": "A valid password is required",
+    "already-registered": "Already a member? Go back to login!",
+    "signup-btn": "Signup",
+    "signup-success": "Your registration was successful!",
+    "signup-success-login": "Log in!"
+  },
+  "header": {
+    "menu": {
+      "home-btn": "Home",
+      "logout-btn": "Logout"
+    }
+  }
+}

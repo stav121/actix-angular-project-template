@@ -1,0 +1,22 @@
+# Application settings
+application:
+  host: "0.0.0.0"
+  port: 8000
+  cors_location: "http://localhost:4200"
+  api_prefix: "/api"
+
+# Jwt settings
+jwt:
+  secret: "my_ultra_secure_secret"
+  expires_in: "15m"
+  max_age: 15
+  cookie_domain: "localhost"
+  cookie_name: "auth-token"
+
+# Database settings
+database:
+  host: "127.0.0.1"
+  port: 5432
+  username: "user"
+  password: "password"
+  database_name: "db"

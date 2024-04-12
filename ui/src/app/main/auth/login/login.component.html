@@ -1,0 +1,103 @@
+<div class="flex align-items-end justify-content-between">
+  <div class="flex pl-5">
+    <app-theme-picker></app-theme-picker>
+  </div>
+
+  <div class="flex pr-5">
+    <app-language-picker></app-language-picker>
+  </div>
+</div>
+
+<div class="flex align-items-center justify-content-center">
+  <!-- Login form -->
+  <form
+    *ngIf="!isLoggedIn"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    novalidate
+  >
+    <div class="flex flex-column align-content-center justify-content-center pt-5">
+      <!-- Identifier -->
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="pi pi-user"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          placeholder="E-mail or username"
+          type="text"
+          formControlName="identifier"
+          required
+          name="identifier"
+          [ngClass]="{'ng-invalid ng-dirty': form.get('identifier')?.invalid}"
+        />
+        <p-inputGroupAddon *ngIf="errorCode==='AUTH001'">
+          <i class="pi pi-exclamation-triangle p-error"
+             pTooltip="Error"
+             tooltipPosition="top">
+          </i>
+        </p-inputGroupAddon>
+      </p-inputGroup>
+
+      <!-- Error message -->
+      <div class="flex justify-content-center align-content-center pt-1"
+           *ngIf="form.get('identifier')?.invalid && form.get('identifier')?.dirty">
+        <small class="p-error">
+          {{ 'login.identifier-required' | translate }}
+        </small>
+      </div>
+    </div>
+
+    <div class="flex aling-content-center justify-content-center pt-3 flex-column">
+      <!-- Password -->
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="pi pi-key"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          placeholder="**********"
+          type="password"
+          formControlName="password"
+          required
+          name="password"
+          minlength="6"
+        >
+        <p-inputGroupAddon *ngIf="errorCode==='AUTH002'">
+          <i class="pi pi-exclamation-triangle p-error"
+             pTooltip="Error"
+             tooltipPosition="top"
+          ></i>
+        </p-inputGroupAddon>
+      </p-inputGroup>
+
+      <!-- Error message -->
+      <div class="flex justify-content-center align-content-center pt-1"
+           *ngIf="form.get('password')?.invalid && form.get('password')?.dirty">
+        <small class="p-error">
+          {{ 'login.password-required' | translate }}
+        </small>
+      </div>
+    </div>
+
+    <!-- Registration button -->
+    <div class="flex align-content-center justify-content-center pt-3">
+      <p class="p-text">
+        {{ 'login.n-member' | translate }} <a class="p-link" [routerLink]="['/register']"
+                                              routerLinkActive>{{ 'login.r-here' | translate }}</a>
+      </p>
+    </div>
+
+    <!-- Login button -->
+    <div class="flex align-content-center justify-content-center">
+      <button pButton
+              pRipple
+              [disabled]="form.invalid"
+              icon="pi pi-angle-right"
+              label="{{'login.login-btn' | translate}}"
+              class="p-button-primary"
+              style="width: 120px"
+              iconPos="right"></button>
+    </div>
+  </form>
+</div>
