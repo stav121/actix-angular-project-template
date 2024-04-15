@@ -1,7 +1,8 @@
 # actix-angular-project-template
-![GitHub Repo stars](https://img.shields.io/github/stars/stav121/actix-angular-project-template?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/stav121/actix-angular-project-template?style=for-the-badge)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/y/stav121/actix-angular-project-template?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/stav121/actix-angular-project-template?style=for-the-badge&color=yellow)
+![GitHub Repo stars](https://img.shields.io/github/stars/stav121/actix-angular-project-template?style=for-the-badge&color=blue)
+![GitHub forks](https://img.shields.io/github/forks/stav121/actix-angular-project-template?style=for-the-badge&color=teal)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/stav121/actix-angular-project-template?style=for-the-badge&color=orange)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/stav121/actix-angular-project-template/build-docker.yml?style=for-the-badge)
 
 🦀 Project template that uses Actix Web and Angular with JWT security
@@ -15,6 +16,8 @@ Angular, in order to speed up the early stages of development of a full stack pr
 
 This application is already dockerized.
 
+This project is designed to be an easy base for any full stack project you might like.
+
 <hr>
 
 ### Try it out!
@@ -27,7 +30,9 @@ git clone https://github.com/stav121/actix-angular-project-template
 docker-compose up -d
 ```
 
-Navigate to: `https://localhost:4200/`
+Navigate to: `http://localhost:4200/`
+
+From there, you can register a new user and login to previous the security.
 
 <hr>
 
@@ -49,11 +54,11 @@ Navigate to: `https://localhost:4200/`
         </tr>
         <tr>
             <th align="start">Frontend Framework</th>
-            <td>Angular</td>
+            <td>Angular (with PrimeNG)</td>
         </tr>
         <tr>
             <th align="start">Secrurity</th>
-            <td>JWT</td>
+            <td>Json Web Token (JWT)</td>
         </tr>
     </tbody>
 </table>
@@ -104,6 +109,14 @@ Navigate to: `https://localhost:4200/`
 ### Existing roles
 
 There are two roles defined in the database, <strong>USER</strong> and <strong>ADMIN</strong>.
+
+When signing up a new user, by default the <strong>USER</strong> role is assigned.
+
+<hr>
+
+### Contributions
+
+If you like this project and wish to contribute, feel free to make a Pull Request directly to the `main` branch.
 
 <hr>
 
