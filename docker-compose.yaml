@@ -10,6 +10,15 @@ services:
     env_file:
       - .env
 
+  init-db:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: "no"
+    depends_on:
+      db:
+        condition: service_started
+
   ui:
     build:
       context: ./ui
