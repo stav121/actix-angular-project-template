@@ -3,7 +3,7 @@ application:
   host: "0.0.0.0"
   port: 8000
   # FIXME: Replace with the actual domain
-  cors_location: "*"
+  cors_location: "http://localhost:4200"
   api_prefix: "/api"
 
 # JWT settings

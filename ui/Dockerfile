@@ -1,4 +1,5 @@
 FROM node:latest AS build
+MAINTAINER Stavros Grigoriou <unix121@protonmail.com>
 
 WORKDIR /app
 

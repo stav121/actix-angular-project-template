@@ -5,10 +5,30 @@
 
 🦀 Project template that uses Actix Web and Angular with JWT security
 
+<hr>
+
 ### Description
 
 Boilerplate Actix Web (Rust) and Angular project that already contains a JWT security implementation in both backend and
 Angular, in order to speed up the early stages of development of a full stack project.
+
+This application is already dockerized.
+
+<hr>
+
+### Try it out!
+
+Checkout the repository and start it using `docker-compose`.
+
+```bash
+git clone https://github.com/stav121/actix-angular-project-template
+
+docker-compose up -d
+```
+
+Navigate to: `https://localhost:4200/`
+
+<hr>
 
 ### Stack
 
@@ -36,6 +56,8 @@ Angular, in order to speed up the early stages of development of a full stack pr
         </tr>
     </tbody>
 </table>
+
+<hr>
 
 ### Existing endpoints
 
@@ -76,6 +98,14 @@ Angular, in order to speed up the early stages of development of a full stack pr
     </tbody>
 </table>
 
+<hr>
+
 ### Existing roles
 
 There are two roles defined in the database, <strong>USER</strong> and <strong>ADMIN</strong>.
+
+<hr>
+
+### Author
+
+Stavros Grigoriou ([stav121](https://github.com/stav121))
