@@ -32,7 +32,7 @@ docker-compose up -d
 
 Navigate to: `http://localhost:4200/`
 
-From there, you can register a new user and login to previous the security.
+From there, you can register a new user and login to preview the security features.
 
 <hr>
 
