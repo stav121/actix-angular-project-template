@@ -2,7 +2,7 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/stav121/actix-angular-project-template?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/stav121/actix-angular-project-template?style=for-the-badge)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/stav121/actix-angular-project-template?style=for-the-badge)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/stav121/actix-angular-project-template/build-docker?style=for-the-badge)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/stav121/actix-angular-project-template/build-docker.yml?style=for-the-badge)
 
 🦀 Project template that uses Actix Web and Angular with JWT security
 
