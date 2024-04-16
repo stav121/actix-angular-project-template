@@ -47,7 +47,6 @@ export class SecurityService {
   }
 
   public tokenExpired(): boolean {
-    console.log(this.AUTH_TOKEN);
     let token: any = this.cookieService.get(this.AUTH_TOKEN);
     if (token === null || token === undefined || token === '') {
       this.isLoggedIn.next(false);
