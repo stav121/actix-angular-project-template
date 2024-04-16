@@ -33,6 +33,12 @@
             name="username"
             [ngClass]="{'ng-invalid ng-dirty': form.get('username')?.invalid}"
           />
+          <p-inputGroupAddon *ngIf="errorCode==='REG001'">
+            <i class="pi pi-exclamation-triangle p-error"
+               pTooltip="Username is required"
+               tooltipPosition="top"
+            ></i>
+          </p-inputGroupAddon>
           <p-inputGroupAddon *ngIf="form.get('username')?.invalid">
             <i class="pi pi-exclamation-circle"
                pTooltip="{{'register.username-required' | translate}}"
@@ -42,7 +48,6 @@
           </p-inputGroupAddon>
         </p-inputGroup>
       </div>
-      <!-- Email -->
 
       <!-- Email -->
       <div class="flex align-content-center justify-content-center pt-3 flex-column">
@@ -62,7 +67,7 @@
             email
             [ngClass]="{'ng-invalid ng-dirty': form.get('email')?.invalid}"
           />
-          <p-inputGroupAddon *ngIf="errorCode==='REG001'">
+          <p-inputGroupAddon *ngIf="errorCode==='REG002'">
             <i class="pi pi-exclamation-triangle p-error"
                pTooltip="email required"
                tooltipPosition="top"
