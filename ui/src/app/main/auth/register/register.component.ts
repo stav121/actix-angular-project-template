@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit {
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.messageService.add({
-          severity: 'Success',
+          severity: 'info',
           detail: 'Account created!'
         });
       },
