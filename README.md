@@ -1,9 +1,9 @@
 # actix-angular-project-template
 [![GitHub License](https://img.shields.io/github/license/stav121/actix-angular-project-template?style=for-the-badge&color=yellow)](https://github.com/stav121/actix-angular-project-template/blob/main/LICENSE)
-![GitHub Repo stars](https://img.shields.io/github/stars/stav121/actix-angular-project-template?style=for-the-badge&color=blue)
-![GitHub forks](https://img.shields.io/github/forks/stav121/actix-angular-project-template?style=for-the-badge&color=teal)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/y/stav121/actix-angular-project-template?style=for-the-badge&color=orange)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/stav121/actix-angular-project-template/build-docker.yml?style=for-the-badge)
+[![GitHub Repo stars](https://img.shields.io/github/stars/stav121/actix-angular-project-template?style=for-the-badge&color=blue)](https://github.com/stav121/actix-angular-project-template/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/stav121/actix-angular-project-template?style=for-the-badge&color=teal)](https://github.com/stav121/actix-angular-project-template/network/members)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/y/stav121/actix-angular-project-template?style=for-the-badge&color=orange)](https://github.com/stav121/actix-angular-project-template/commits/main)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/stav121/actix-angular-project-template/build-docker.yml?style=for-the-badge)](https://github.com/stav121/actix-angular-project-template/actions)
 
 🦀 Project template that uses Actix Web and Angular with JWT security
 
