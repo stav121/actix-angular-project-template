@@ -1,5 +1,5 @@
 # actix-angular-project-template
-![GitHub License](https://img.shields.io/github/license/stav121/actix-angular-project-template?style=for-the-badge&color=yellow)
+[![GitHub License](https://img.shields.io/github/license/stav121/actix-angular-project-template?style=for-the-badge&color=yellow)](https://github.com/stav121/actix-angular-project-template/blob/main/LICENSE)
 ![GitHub Repo stars](https://img.shields.io/github/stars/stav121/actix-angular-project-template?style=for-the-badge&color=blue)
 ![GitHub forks](https://img.shields.io/github/forks/stav121/actix-angular-project-template?style=for-the-badge&color=teal)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/stav121/actix-angular-project-template?style=for-the-badge&color=orange)
