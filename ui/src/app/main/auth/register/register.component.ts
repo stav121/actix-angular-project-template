@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {RegistrationRequest} from "../../../shared/model/auth.model";
 import {AuthService} from "../../../shared/service/auth.service";
@@ -7,10 +7,10 @@ import {InputGroupModule} from "primeng/inputgroup";
 import {InputGroupAddonModule} from "primeng/inputgroupaddon";
 import {TooltipModule} from "primeng/tooltip";
 import {InputTextModule} from "primeng/inputtext";
-import {NgClass, NgIf} from "@angular/common";
+import {NgClass} from "@angular/common";
 import {RippleModule} from "primeng/ripple";
 import {ButtonModule} from "primeng/button";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslatePipe} from "@ngx-translate/core";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {LanguagePickerComponent} from "../../../shared/layout/language-picker/language-picker.component";
 import {ThemePickerComponent} from "../../../shared/layout/theme-picker/theme-picker.component";
@@ -22,24 +22,23 @@ import {ThemePickerComponent} from "../../../shared/layout/theme-picker/theme-pi
  */
 @Component({
   selector: 'app-register',
-  standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        FormsModule,
-        InputGroupModule,
-        InputGroupAddonModule,
-        TooltipModule,
-        InputTextModule,
-        NgClass,
-        NgIf,
-        RippleModule,
-        ButtonModule,
-        TranslateModule,
-        RouterLink,
-        RouterLinkActive,
-        LanguagePickerComponent,
-        ThemePickerComponent
-    ],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    TooltipModule,
+    InputTextModule,
+    NgClass,
+    RippleModule,
+    ButtonModule,
+    TranslatePipe,
+    RouterLink,
+    RouterLinkActive,
+    LanguagePickerComponent,
+    ThemePickerComponent
+  ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {

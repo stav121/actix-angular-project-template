@@ -1,4 +1,4 @@
-use actix_web::{get, HttpResponse};
+use actix_web::{HttpResponse, get};
 
 /// API Resource: /actuator/health_check \[GET\]
 ///

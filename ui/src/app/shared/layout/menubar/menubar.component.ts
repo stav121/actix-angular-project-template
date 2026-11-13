@@ -1,13 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {ToolbarModule} from "primeng/toolbar";
 import {AvatarModule} from "primeng/avatar";
-import {Router, RouterLink} from "@angular/router";
+import {Router} from "@angular/router";
 import {TooltipModule} from "primeng/tooltip";
 import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {TieredMenuModule} from "primeng/tieredmenu";
-import {NgIf} from "@angular/common";
-import {heartBeatAnimation} from "angular-animations";
 import {interval, Subscription} from "rxjs";
 import {AuthService} from "../../service/auth.service";
 import {SecurityService} from "../../service/security.service";
@@ -21,19 +19,17 @@ import {ActuatorService} from "../../service/actuator.services";
  */
 @Component({
   selector: 'app-menubar',
-  standalone: true,
   imports: [
     ToolbarModule,
     AvatarModule,
-    RouterLink,
     TooltipModule,
     ButtonModule,
     RippleModule,
-    TieredMenuModule,
-    NgIf
+    TieredMenuModule
   ],
   templateUrl: './menubar.component.html',
-  animations: [heartBeatAnimation()]
+  styleUrl: './menubar.component.css',
+  changeDetection: ChangeDetectionStrategy.Eager
 })
 export class MenubarComponent implements OnInit, OnDestroy {
   public menuItems: any = {};
@@ -102,11 +98,13 @@ export class MenubarComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * Plays the heartbeat animation once. The template resets the flag on animationend;
+   * removing the class first restarts an animation that is still running.
+   */
   public animate(): void {
     this.animateHeartbeat = false;
-    setTimeout(() => {
-      this.animateHeartbeat = true;
-    }, 2);
+    setTimeout(() => this.animateHeartbeat = true);
   }
 
   public translateMenu(): void {

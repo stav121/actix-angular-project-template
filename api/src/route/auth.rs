@@ -8,20 +8,20 @@ use crate::service::authentication::login_user;
 use crate::service::registration::register_new_user;
 use actix_web::cookie::{Cookie, SameSite};
 use actix_web::web::{Data, Json};
-use actix_web::{get, post, HttpResponse};
+use actix_web::{HttpResponse, get, post};
 use serde_json::json;
 
 #[doc = r#"API Resource: /auth/register [POST]
 
 Register a new user to the application providing the required details.
 
-If the operation is successfull, 200 OK is returned with the created user's details.
+If the operation is successful, 200 OK is returned with the created user's details.
 
 Errors:
 
 ErrorCode::REG001 / 409 Conflict - The username already exists.
 ErrorCode::REG002 / 409 Conflict - The email already exists.
-ErrorCode::REG003 / 500 Internal Server Error - Any other error case.
+ErrorCode::INTERNAL001 / 500 Internal Server Error - Any other error case.
 "#]
 #[tracing::instrument(
     name = "Registering a new user",
@@ -49,11 +49,11 @@ pub async fn register_user_handler(
 
 Login the user that matches the provided credentials to the application.
 
-If successfull, a cookie is set with the JWT token for the user. 200 Ok is returned with the token value as well.
+If successful, a cookie is set with the JWT token for the user. 200 Ok is returned with the token value as well.
 
 ErrorCode::AUTH001 / 404 Not Found - The user was not found in the database.
 ErrorCode::AUTH002 / 400 Bad Request - The user's password is wrong.
-ErrorCode::INTERNAL001 / 500 Bad Request - Any other error.
+ErrorCode::INTERNAL001 / 500 Internal Server Error - Any other error.
 "#]
 #[tracing::instrument(
     name = "Authenticating user",
@@ -72,7 +72,7 @@ pub async fn login_handler(body: Json<LoginRequest>, data: Data<AppState>) -> Ht
             .cookie(
                 Cookie::build(&data.settings.jwt.cookie_name, token.to_owned())
                     .path("/")
-                    .domain(&data.settings.jwt.cookie_domain.clone())
+                    .domain(data.settings.jwt.cookie_domain.clone())
                     .http_only(false)
                     .secure(false)
                     .same_site(SameSite::Lax)
@@ -89,7 +89,7 @@ Logout the provided user by deleting the token cookie.
 
 Returns:
 
-204 / No Content if the operation is successfull.
+204 / No Content if the operation is successful.
 "#]
 #[tracing::instrument(
     name = "Performing log out",
@@ -104,7 +104,7 @@ pub async fn logout_handler(auth: AuthDetails, data: Data<AppState>) -> HttpResp
         .cookie(
             Cookie::build(&data.settings.jwt.cookie_name, "")
                 .path("/")
-                .domain(&data.settings.jwt.cookie_domain.clone())
+                .domain(data.settings.jwt.cookie_domain.clone())
                 .http_only(true)
                 .secure(false)
                 .finish(),

@@ -4,7 +4,7 @@ pub mod registration {
     #[derive(Debug, serde::Deserialize)]
     pub struct RegistrationRequest {
         pub username: String,
-        pub email:    String,
+        pub email: String,
         pub password: String,
     }
 }
@@ -16,6 +16,6 @@ pub mod auth {
     pub struct LoginRequest {
         #[doc = "The user's identifier, email or username"]
         pub identifier: String,
-        pub password:   String,
+        pub password: String,
     }
 }

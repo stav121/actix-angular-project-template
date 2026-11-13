@@ -41,3 +41,24 @@ impl ErrorResponse {
         .json(json!(ErrorResponse::new(code)))
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use actix_web::http::StatusCode;
+
+    #[test]
+    fn error_codes_map_to_http_status() {
+        let cases = [
+            (ErrorCode::REG001, StatusCode::CONFLICT),
+            (ErrorCode::REG002, StatusCode::CONFLICT),
+            (ErrorCode::AUTH001, StatusCode::NOT_FOUND),
+            (ErrorCode::AUTH002, StatusCode::BAD_REQUEST),
+            (ErrorCode::INTERNAL001, StatusCode::INTERNAL_SERVER_ERROR),
+        ];
+
+        for (code, status) in cases {
+            assert_eq!(ErrorResponse::build(code).status(), status);
+        }
+    }
+}

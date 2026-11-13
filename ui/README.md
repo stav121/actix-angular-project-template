@@ -1,27 +1,27 @@
-# Ui
+# UI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
+Angular 22 front end for the template, built with PrimeNG 22 (Aura preset), PrimeFlex and ngx-translate. Use Node.js 22.22.3+, 24.15+ or 26 (current LTS), as required by Angular CLI 22.
+
+## Setup
+
+Run `npm ci` to install the dependencies from `package-lock.json`.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `npm start` (`ng serve`) and open `http://localhost:4200/`. The development configuration uses `src/environments/environment.development.ts`, and the application reloads when a source file changes.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm run build -- --configuration=production` for a production build, or `npm run build -- --configuration=development` for a development build. The output goes to `dist/ui/browser`.
 
-## Running unit tests
+## Unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm test` to run the unit tests once with [Vitest](https://vitest.dev) through the Angular `@angular/build:unit-test` builder (jsdom, no browser needed). Run `npm run test:watch` to re-run the tests on every change.
 
-## Running end-to-end tests
+## PrimeNG license
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+PrimeNG 22 is distributed under the PrimeUI License (https://primeui.dev/licenses), not MIT. Without a license key the page shows an "Invalid PrimeUI License" notice. Put the key in `PRIMEUI_LICENSE` in `src/environments/environment.ts` and `environment.development.ts`.
 
-## Further help
+## Docker
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The `Dockerfile` builds the production configuration on `node:26-alpine` and serves `dist/ui/browser` with `nginx:stable-alpine`. The production API URL is `http://localhost:8000/api/`, which matches the port mapping in the root `docker-compose.yaml`.

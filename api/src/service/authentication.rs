@@ -4,14 +4,14 @@ use crate::middleware::auth::TokenClaims;
 use crate::model::request::auth::LoginRequest;
 use crate::model::response::ErrorCode;
 use crate::model::response::ErrorCode::{AUTH001, AUTH002};
-use argon2::{Argon2, PasswordHash, PasswordVerifier};
+use argon2::{Argon2, PasswordVerifier};
 use chrono::{DateTime, Utc};
-use jsonwebtoken::{encode, EncodingKey, Header};
+use jsonwebtoken::{EncodingKey, Header, encode};
 use secrecy::ExposeSecret;
 use sqlx::PgPool;
 
 #[doc = r#"Login the user that matches the provided credentials.
-Identificiation is done by matching the email or username of the user.
+Identification is done by matching the email or username of the user.
 
 Errors:
 
@@ -36,11 +36,11 @@ pub async fn login_user(
     }
 
     // Verify the user's password
-    let is_password_valid: bool = user.to_owned().map_or(false, |u| {
-        let parsed_hash: PasswordHash = PasswordHash::new(&u.password).unwrap();
+    // A stored hash that cannot be parsed is treated as a wrong password.
+    let is_password_valid: bool = user.as_ref().is_some_and(|u| {
         Argon2::default()
-            .verify_password(data.password.as_bytes(), &parsed_hash)
-            .map_or(false, |_| true)
+            .verify_password(data.password.as_bytes(), u.password.as_str())
+            .is_ok()
     });
 
     // Invalid password
@@ -67,7 +67,7 @@ pub async fn login_user(
         &claims,
         &EncodingKey::from_secret(settings.jwt.secret.expose_secret().as_ref()),
     )
-    .unwrap();
+    .map_err(|_| ErrorCode::INTERNAL001)?;
 
     // Update the last login date
     match user.update_last_login(pool).await {

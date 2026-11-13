@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ThemeService} from "../../service/theme.service";
-import {InputSwitchModule} from "primeng/inputswitch";
+import {ToggleSwitchModule} from "primeng/toggleswitch";
 import {FormsModule} from "@angular/forms";
 
 /**
@@ -10,27 +10,27 @@ import {FormsModule} from "@angular/forms";
  */
 @Component({
   selector: 'app-theme-picker',
-  standalone: true,
   imports: [
-    InputSwitchModule,
+    ToggleSwitchModule,
     FormsModule
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './theme-picker.component.html'
 })
-export class ThemePickerComponent {
+export class ThemePickerComponent implements OnInit {
   @Input() public darkTheme: boolean = false;
   @Output() public onChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private themeService: ThemeService) {
   }
 
+  public ngOnInit(): void {
+    // Keep the switch in sync when moving between pages that each have a picker
+    this.darkTheme = this.themeService.isDarkTheme();
+  }
+
   public onThemeChange() {
-    if (this.darkTheme) {
-      this.themeService.switchTheme('soho-dark');
-      this.onChange.emit(true);
-    } else {
-      this.themeService.switchTheme('soho-light');
-      this.onChange.emit(false);
-    }
+    this.themeService.darkTheme(this.darkTheme);
+    this.onChange.emit(this.darkTheme);
   }
 }

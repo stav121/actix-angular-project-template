@@ -1,8 +1,9 @@
-import {Inject, Injectable} from "@angular/core";
-import {DOCUMENT} from "@angular/common";
+import {DOCUMENT, inject, Injectable} from "@angular/core";
+import {DARK_MODE_CLASS} from "../../theme.preset";
 
 /**
- * Theme selection service.
+ * Theme selection service. PrimeNG switches to its dark color scheme while
+ * the dark mode class is set on the <html> element.
  *
  * @author Stavros Grigoriou <unix121@protonmail.com>
  */
@@ -10,19 +11,13 @@ import {DOCUMENT} from "@angular/common";
   providedIn: 'root'
 })
 export class ThemeService {
-
-  constructor(@Inject(DOCUMENT) private document: Document) {
-  }
+  private document = inject(DOCUMENT);
 
   public darkTheme(val: boolean): void {
-    this.switchTheme(val ? 'soho-dark' : 'soho-light');
+    this.document.documentElement.classList.toggle(DARK_MODE_CLASS, val);
   }
 
-  public switchTheme(theme: string): void {
-    let themeLink = this.document.getElementById('app-theme') as HTMLLinkElement;
-
-    if (themeLink) {
-      themeLink.href = theme + '.css';
-    }
+  public isDarkTheme(): boolean {
+    return this.document.documentElement.classList.contains(DARK_MODE_CLASS);
   }
 }

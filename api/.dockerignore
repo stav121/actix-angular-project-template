@@ -2,3 +2,5 @@
 tests/
 target/
 Dockerfile
+.env
+.idea/

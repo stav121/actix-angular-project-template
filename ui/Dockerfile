@@ -1,19 +1,18 @@
-FROM node:latest AS build
-MAINTAINER Stavros Grigoriou <unix121@protonmail.com>
+FROM node:26-alpine AS build
+LABEL maintainer="Stavros Grigoriou <unix121@protonmail.com>"
 
 WORKDIR /app
 
-COPY package.json .
+COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY . .
 
-# FIXME: Uncomment for production build
-#RUN npm run build --configuration=production
-RUN npm run build --configuration=development
+RUN npm run build -- --configuration=production
 
-FROM nginx:latest
+FROM nginx:stable-alpine
+LABEL maintainer="Stavros Grigoriou <unix121@protonmail.com>"
 
 RUN rm /etc/nginx/conf.d/default.conf
 

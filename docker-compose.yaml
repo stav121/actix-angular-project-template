@@ -1,23 +1,17 @@
-version: '3.9'
-
 services:
   db:
-    image: postgres:16.0
+    image: postgres:18
     ports:
       - "5432:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql
     env_file:
       - .env
-
-  init-db:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    restart: "no"
-    depends_on:
-      db:
-        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   ui:
     build:
@@ -26,6 +20,7 @@ services:
     ports:
       - "4200:80"
 
+  # Database migrations are applied by the API on startup.
   api:
     build:
       context: ./api
@@ -33,7 +28,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
 volumes:
   db-data:

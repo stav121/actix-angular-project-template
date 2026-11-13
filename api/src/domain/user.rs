@@ -5,20 +5,20 @@ use sqlx::PgPool;
 #[doc = "User model used for authentication"]
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, sqlx::FromRow)]
 pub struct AuthUser {
-    pub user_id:  i64,
+    pub user_id: i64,
     pub username: String,
-    pub email:    String,
+    pub email: String,
     pub password: String,
-    pub role:     String,
+    pub role: String,
 }
 
 #[doc = "User response that is generated from @app_user table"]
 #[derive(Debug, serde::Deserialize, serde::Serialize)]
 pub struct UserResponse {
-    pub user_id:    i64,
-    pub username:   String,
-    pub email:      String,
-    pub role:       String,
+    pub user_id: i64,
+    pub username: String,
+    pub email: String,
+    pub role: String,
     pub created_at: DateTime<Utc>,
 }
 

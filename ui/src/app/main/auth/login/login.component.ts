@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../../../shared/service/auth.service";
 import {LoginRequest} from "../../../shared/model/auth.model";
@@ -6,12 +6,12 @@ import {MessageService} from "primeng/api";
 import {SecurityService} from "../../../shared/service/security.service";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {Subscription} from "rxjs";
-import {NgClass, NgIf} from "@angular/common";
+import {NgClass} from "@angular/common";
 import {InputGroupModule} from "primeng/inputgroup";
 import {InputGroupAddonModule} from "primeng/inputgroupaddon";
-import {ChipsModule} from "primeng/chips";
+import {InputTextModule} from "primeng/inputtext";
 import {TooltipModule} from "primeng/tooltip";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslatePipe} from "@ngx-translate/core";
 import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {ThemePickerComponent} from "../../../shared/layout/theme-picker/theme-picker.component";
@@ -24,16 +24,14 @@ import {LanguagePickerComponent} from "../../../shared/layout/language-picker/la
  */
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [
-    NgIf,
     ReactiveFormsModule,
     InputGroupModule,
     InputGroupAddonModule,
-    ChipsModule,
+    InputTextModule,
     NgClass,
     TooltipModule,
-    TranslateModule,
+    TranslatePipe,
     RouterLink,
     RouterLinkActive,
     ButtonModule,
@@ -41,6 +39,7 @@ import {LanguagePickerComponent} from "../../../shared/layout/language-picker/la
     ThemePickerComponent,
     LanguagePickerComponent
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit, OnDestroy {

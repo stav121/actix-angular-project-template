@@ -1,37 +1,40 @@
-FROM rust:1.75.0 AS builder
-MAINTAINER Stavros Grigoriou <unix121@protonmail.com>
+FROM rust:1.100-slim-trixie AS builder
+LABEL maintainer="Stavros Grigoriou <unix121@protonmail.com>"
+
+RUN apt-get update -y \
+      && apt-get install -y --no-install-recommends pkg-config libssl-dev \
+      && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-RUN USER=root cargo init
+# Build the dependencies first so they are cached between source changes
+RUN USER=root cargo init --lib --name api
+COPY Cargo.toml Cargo.lock ./
+RUN mkdir -p src && echo "fn main() {}" > src/main.rs \
+      && cargo build --release --locked \
+      && rm -rf src
 
-# Download the dependency code
-COPY Cargo.toml Cargo.toml
-RUN cargo fetch
-
-# Copy the source code and configurations
+# Copy the source code, migrations and the offline query data
 COPY src src
-COPY sqlx-data.json sqlx-data.json
+COPY migrations migrations
+COPY .sqlx .sqlx
 # FIXME: Update the configuration to production
 COPY configuration-prod.yaml configuration.yaml
-COPY .env.docker .env
 
-# Build the application
-ENV SQLX_OFFLINE true
+# Build the application without a database connection
+ENV SQLX_OFFLINE=true
 
-RUN cargo build --release
+RUN touch src/lib.rs src/main.rs && cargo build --release --locked
 
-FROM bitnami/minideb:bookworm AS runtime
+FROM debian:trixie-slim AS runtime
 
 RUN apt-get update -y \
-      && apt install -y --no-install-recommends openssl ca-certificates \
-      && apt-get autoremove -y \
+      && apt-get install -y --no-install-recommends openssl ca-certificates \
       && apt-get clean -y \
       && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/target/release/api /
 COPY --from=builder /app/configuration.yaml /
-COPY --from=builder /app/.env /
 
 USER 1001
 
