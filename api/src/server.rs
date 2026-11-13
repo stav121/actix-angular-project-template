@@ -4,15 +4,15 @@ use crate::route::auth::{login_handler, logout_handler, profile_handler, registe
 use actix_cors::Cors;
 use actix_web::dev::Server;
 use actix_web::http::header;
-use actix_web::middleware::Logger;
-use actix_web::web::{scope, ServiceConfig};
-use actix_web::{web, App, HttpServer};
+use actix_web::web::{ServiceConfig, scope};
+use actix_web::{App, HttpServer, web};
 use sqlx::{Pool, Postgres};
 use std::net::TcpListener;
+use tracing_actix_web::TracingLogger;
 
 #[doc = "Application state"]
 pub struct AppState {
-    pub db:       Pool<Postgres>,
+    pub db: Pool<Postgres>,
     pub settings: Settings,
 }
 
@@ -61,12 +61,12 @@ pub async fn run(
         // Configure the application
         App::new()
             .app_data(web::Data::new(AppState {
-                db:       pg_pool.clone(),
+                db: pg_pool.clone(),
                 settings: settings.clone(),
             }))
             .configure(|c| get_config(c, &settings.application))
             .wrap(cors)
-            .wrap(Logger::default())
+            .wrap(TracingLogger::default())
     })
     .listen(tcp_listener)?
     .run();

@@ -1,13 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActuatorService} from "./shared/service/actuator.services";
 import {TranslateService} from "@ngx-translate/core";
 import {SecurityService} from "./shared/service/security.service";
 import {Subscription} from "rxjs";
-import {AuthService} from "./shared/service/auth.service";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class AppComponent implements OnInit, OnDestroy {
   public isLoggedIn: boolean = false;
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
               private securityService: SecurityService,
               private translateService: TranslateService) {
     this.translateService.addLangs(['en']);
-    this.translateService.setDefaultLang('en');
+    this.translateService.setFallbackLang('en');
     this.translateService.use('en');
   }
 

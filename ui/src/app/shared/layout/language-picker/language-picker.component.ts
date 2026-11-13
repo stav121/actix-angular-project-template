@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormBuilder, FormsModule} from "@angular/forms";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {FormsModule} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
-import {DropdownModule} from "primeng/dropdown";
+import {SelectModule} from "primeng/select";
 
 /**
  * Language selection component.
@@ -10,11 +10,11 @@ import {DropdownModule} from "primeng/dropdown";
  */
 @Component({
   selector: 'app-language-picker',
-  standalone: true,
   imports: [
-    DropdownModule,
+    SelectModule,
     FormsModule
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './language-picker.component.html'
 })
 export class LanguagePickerComponent {
@@ -23,8 +23,8 @@ export class LanguagePickerComponent {
   @Output() public onChange: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private translateService: TranslateService) {
-    this.languages = this.translateService.getLangs();
-    this.selectedLang = this.translateService.currentLang;
+    this.languages = [...this.translateService.getLangs()];
+    this.selectedLang = this.translateService.getCurrentLang() ?? '';
   }
 
   public onLanguageChange() {

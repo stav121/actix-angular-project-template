@@ -1,0 +1,22 @@
+/* Same keyframes as the heartBeat animation from the angular-animations package */
+.heartbeat {
+  animation: heartbeat 1300ms ease-in-out;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.3);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.3);
+  }
+  70% {
+    transform: scale(1);
+  }
+}

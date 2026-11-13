@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n     SELECT EXISTS(\n        SELECT 1\n        FROM app_user u\n        WHERE LOWER(u.username) = LOWER($1)\n     )\n     ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "exists",
+        "type_info": "Bool",
+        "origin": "Expression"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "598934f7d1d73c7310b5b5d1b23ca8ed4ef26646ee241889475b49cc84b1bd88"
+}

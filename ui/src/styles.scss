@@ -2,3 +2,15 @@
   font-family: "Iosevka";
   font-size: 16px;
 }
+
+/*
+ * PrimeNG 18+ themes no longer ship these helper classes, so they are defined
+ * here with the design tokens of the active preset.
+ */
+.p-error {
+  color: var(--p-red-500);
+}
+
+.p-text-secondary {
+  color: var(--p-text-muted-color);
+}

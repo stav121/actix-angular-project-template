@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE app_user u\n            SET last_login = NOW()\n            WHERE u.user_id = $1\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "661e97bbb8fc43ec59751fd43362fb0e7b96fb30050ff4becc53c56180db075e"
+}

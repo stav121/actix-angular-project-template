@@ -1,34 +1,20 @@
-import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
+import {inject} from "@angular/core";
+import {CanActivateFn, Router, UrlTree} from "@angular/router";
 import {SecurityService} from "../service/security.service";
 
-@Injectable()
-export class AuthGuard implements CanActivate {
-  constructor(private securityService: SecurityService,
-              private router: Router) {
+/**
+ * Allows the route when the stored user has the given role. Without a stored
+ * user, redirects to the login page.
+ */
+function hasRoleOrLogin(role: string): boolean | UrlTree {
+  const securityService = inject(SecurityService);
+  const user = securityService.getUser();
+  if (user.role) {
+    return securityService.hasRole(role);
   }
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
-    const user = this.securityService.getUser();
-    if (user.role) {
-      return this.securityService.hasRole('USER');
-    }
-    return this.router.navigate(['/login']);
-  }
+  return inject(Router).createUrlTree(['/login']);
 }
 
+export const authGuard: CanActivateFn = () => hasRoleOrLogin('USER');
 
-@Injectable()
-export class AdminGuard implements CanActivate {
-  constructor(private securityService: SecurityService,
-              private router: Router) {
-  }
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<boolean> {
-    const user = this.securityService.getUser();
-    if (user.role) {
-      return this.securityService.hasRole('ADMIN');
-    }
-    return this.router.navigate(['/login']);
-  }
-}
+export const adminGuard: CanActivateFn = () => hasRoleOrLogin('ADMIN');

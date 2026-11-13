@@ -1,8 +1,8 @@
 use crate::server::AppState;
 use actix_web::dev::Payload;
 use actix_web::error::ErrorUnauthorized;
-use actix_web::{http, web, FromRequest, HttpMessage, HttpRequest};
-use jsonwebtoken::{decode, DecodingKey, Validation};
+use actix_web::{FromRequest, HttpMessage, HttpRequest, http, web};
+use jsonwebtoken::{DecodingKey, Validation, decode};
 use secrecy::ExposeSecret;
 use std::fmt;
 use std::future::ready;
@@ -10,16 +10,16 @@ use std::future::ready;
 #[doc = "Token claims supported for the JWT"]
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub struct TokenClaims {
-    pub sub:  String,
-    pub iat:  usize,
-    pub exp:  usize,
+    pub sub: String,
+    pub iat: usize,
+    pub exp: usize,
     pub role: String,
 }
 
 #[doc = "Error response"]
 #[derive(Debug, serde::Serialize)]
 struct ErrorResponse {
-    status:  String,
+    status: String,
     message: String,
 }
 
@@ -32,7 +32,9 @@ impl fmt::Display for ErrorResponse {
 #[derive(Debug)]
 pub struct AuthDetails {
     pub user_id: i64,
-    pub role:    String,
+    // Not read by the bundled handlers; available for role checks in new ones.
+    #[allow(dead_code)]
+    pub role: String,
 }
 
 impl FromRequest for AuthDetails {
@@ -50,12 +52,14 @@ impl FromRequest for AuthDetails {
             .or_else(|| {
                 req.headers()
                     .get(http::header::AUTHORIZATION)
-                    .map(|h| h.to_str().unwrap().split_at(7).1.to_string())
+                    .and_then(|h| h.to_str().ok())
+                    .and_then(|h| h.strip_prefix("Bearer "))
+                    .map(|t| t.to_string())
             });
 
         if token.is_none() {
             return ready(Err(ErrorUnauthorized(ErrorResponse {
-                status:  "fail".to_string(),
+                status: "fail".to_string(),
                 message: "No token provided".to_string(),
             })));
         }
@@ -68,14 +72,22 @@ impl FromRequest for AuthDetails {
             Ok(c) => c.claims,
             Err(_) => {
                 return ready(Err(ErrorUnauthorized(ErrorResponse {
-                    status:  "fail".to_string(),
+                    status: "fail".to_string(),
                     message: "Invalid token".to_string(),
                 })));
             }
         };
 
         // Retrieve the user's id and role
-        let user_id: i64 = claims.sub.as_str().parse::<i64>().unwrap();
+        let user_id: i64 = match claims.sub.parse::<i64>() {
+            Ok(id) => id,
+            Err(_) => {
+                return ready(Err(ErrorUnauthorized(ErrorResponse {
+                    status: "fail".to_string(),
+                    message: "Invalid token".to_string(),
+                })));
+            }
+        };
         let role: String = claims.role.to_owned();
         req.extensions_mut().insert::<i64>(user_id.to_owned());
 

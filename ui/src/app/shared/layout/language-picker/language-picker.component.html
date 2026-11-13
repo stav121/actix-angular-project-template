@@ -1,10 +1,10 @@
-<p-dropdown [options]="languages"
-            [(ngModel)]="selectedLang"
-            (onChange)="onLanguageChange()">
-  <ng-template pTemplate="selectedItem">
+<p-select [options]="languages"
+          [(ngModel)]="selectedLang"
+          (onChange)="onLanguageChange()">
+  <ng-template #selectedItem>
     <span class="fi fi-{{langToFlag(selectedLang)}}"></span> {{ selectedLang }}
   </ng-template>
-  <ng-template let-lang pTemplate="item">
+  <ng-template let-lang #item>
     <span class="fi fi-{{langToFlag(lang)}}"></span> {{ lang }}
   </ng-template>
-</p-dropdown>
+</p-select>
